@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/itemConfiguracion"
+        android:title="Configuración" />
+    <item
+        android:id="@+id/itemPerfil"
+        android:title="Perfil" />
+    <item
+        android:id="@+id/itemInfoRegistro"
+        android:title="Información de registro" />
+    <item
+        android:id="@+id/itemConsultarUsuario"
+        android:title="Consultar Usuario" />
+    <item
+        android:id="@+id/itemAcercaDe"
+        android:title="Acerca de" />
+</menu>
