@@ -35,6 +35,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegistroActivity extends AppCompatActivity {
 
@@ -314,7 +316,14 @@ public class RegistroActivity extends AppCompatActivity {
     public void guardarRegistro(View view){
         if(verificarCampos()){
             if(verificarEstadoSD() == 0){
-                guardarBD(txtCedula.getText().toString(), txtNombresApellidos.getText().toString(), txtEdad.getText().toString(), spNacionalidad.getSelectedItem().toString(), genero.getSelectedItem().toString(), txtFechaNacimiento.getText().toString());
+                Map<String, String> datos = new HashMap<>();
+                datos.put("cedula", txtCedula.getText().toString());
+                datos.put("nombresApellidos", txtNombresApellidos.getText().toString());
+                datos.put("edad", txtEdad.getText().toString());
+                datos.put("nacionalidad", spNacionalidad.getSelectedItem().toString());
+                datos.put("genero", genero.getSelectedItem().toString());
+                datos.put("fechaNacimiento", txtFechaNacimiento.getText().toString());
+                guardarBD(datos);
                 toastOk("Registro guardado con éxito en BD");
                 if(guardarDatosSD(obtenerDatos())){
                     toastOk("Registro guardado con éxito en SD");
@@ -366,6 +375,21 @@ public class RegistroActivity extends AppCompatActivity {
         }
 
     }
+
+    public void guardarBD (Map<String, String> datos) {
+        MyOpenHelper dbTarea1Grupo6 = new MyOpenHelper(this);
+        final SQLiteDatabase dbTarea1Grupo6Mode = dbTarea1Grupo6.getWritableDatabase();
+
+        if (dbTarea1Grupo6Mode != null && datos != null && !datos.isEmpty()) {
+            ContentValues cv = new ContentValues();
+            for (Map.Entry<String, String> entry : datos.entrySet()) {
+                cv.put(entry.getKey(), entry.getValue());
+            }
+            dbTarea1Grupo6Mode.insert("usuario", null, cv);
+        }
+
+    }
+
 
     public void limpiarCampos(){
         txtCedula.setText("");
